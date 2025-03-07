@@ -157,32 +157,35 @@ class LoginScreen extends StatelessWidget {
                           ],
                         ),
                         SizedBox_Height(height: 90.h),
-                        state is LogInLoadingState
-                            ? const Loading()
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CustomButton(
-                                  onPressed: () {
-                                    if (BlocProvider.of<LogInBloc>(context)
-                                        .formkey
-                                        .currentState!
-                                        .validate()) {
-                                      context
-                                          .read<LogInBloc>()
-                                          .add(LogInSuccess(LogInModel(
-                                            username: loginbloc.username.text,
-                                            password: loginbloc.password.text,
-                                          )));
-                                    } else {
-                                      showTost(
-                                          message: AppStrings.loginFailed.tr(),
-                                          state: ToastState.error);
-                                    }
-                                  },
-                                  text: AppStrings.login.tr(),
-                                  height: 40,
-                                ),
-                              )
+                        // state is LogInLoadingState
+                        //     ? const Loading()
+                        //     :
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('bottom');
+                            },
+                            //   if (BlocProvider.of<LogInBloc>(context)
+                            //       .formkey
+                            //       .currentState!
+                            //       .validate()) {
+                            //     context
+                            //         .read<LogInBloc>()
+                            //         .add(LogInSuccess(LogInModel(
+                            //           username: loginbloc.username.text,
+                            //           password: loginbloc.password.text,
+                            //         )));
+                            //   } else {
+                            //     showTost(
+                            //         message: AppStrings.loginFailed.tr(),
+                            //         state: ToastState.error);
+                            //   }
+                            // },
+                            text: AppStrings.login.tr(),
+                            height: 40,
+                          ),
+                        )
                       ],
                     ),
                   ),

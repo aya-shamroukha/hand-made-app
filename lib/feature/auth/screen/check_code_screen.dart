@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,6 @@ import 'package:hand_made_app/core/resources/app_assets.dart';
 import 'package:hand_made_app/core/resources/app_color.dart';
 import 'package:hand_made_app/core/resources/app_string.dart';
 import 'package:hand_made_app/feature/share/custom_button.dart';
-import 'package:hand_made_app/feature/share/custom_text_field.dart';
 import 'package:hand_made_app/feature/share/sized_box.dart';
 import 'package:pinput/pinput.dart';
 

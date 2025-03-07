@@ -1,10 +1,8 @@
 // ignore_for_file: avoid_print
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:geocoding/geocoding.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_made_app/core/config/local_storage/shared_preferences.dart';
 import 'package:hand_made_app/core/resources/app_string.dart';
@@ -13,11 +11,9 @@ import 'package:hand_made_app/feature/share/sized_box.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../core/resources/app_color.dart';
 
 getCurrentLocationApp() async {
@@ -71,6 +67,7 @@ class _LocationScreenState extends State<LocationScreen> {
   bool isSearching = false;
 
 //! Function to convert latitude and longitude to an address
+//
   // Future<void> getAddressFromLatLng(double latitude, double longitude) async {
   //   Position position = await getCurrentLocationApp();
 

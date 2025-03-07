@@ -143,32 +143,45 @@ class SignupScreen extends StatelessWidget {
                       ],
                     ),
                     SizedBox_Height(height: 50.h),
-                    state is SignUpLoadingState
-                        ? const Loading()
-                        : CustomButton(
-                            height: 35.h,
-                            onPressed: () {
-                              if (BlocProvider.of<SignUpBloc>(context)
-                                  .formkey
-                                  .currentState!
-                                  .validate()) {
-                                context
-                                    .read<SignUpBloc>()
-                                    .add(SignUpSuccess(SignUpModel(
-                                      name: 'aya',
-                                      username: signupbloc.username.text,
-                                      phone_number: signupbloc.phone.text,
-                                      password: signupbloc.password.text,
-                                      email: signupbloc.email.text,
-                                    )));
-                              } else {
-                                showTost(
-                                    message: AppStrings.signup.tr(),
-                                    state: ToastState.error);
-                              }
-                            },
-                            text: AppStrings.signup.tr(),
-                          )
+                    Container(
+                      height: 50.h,
+                      width: 55.w,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColor.primary),
+                          color: AppColor.primary,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: IconButton(
+                        icon:
+                            Icon(Icons.arrow_back, color: AppColor.background),
+                        onPressed: () {},
+                      ),
+                    ),
+                    // state is SignUpLoadingState
+                    //     ? const Loading()
+                    //     : CustomButton(
+                    //         height: 35.h,
+                    //         onPressed: () {
+                    //           if (BlocProvider.of<SignUpBloc>(context)
+                    //               .formkey
+                    //               .currentState!
+                    //               .validate()) {
+                    //             context
+                    //                 .read<SignUpBloc>()
+                    //                 .add(SignUpSuccess(SignUpModel(
+                    //                   name: 'aya',
+                    //                   username: signupbloc.username.text,
+                    //                   phone_number: signupbloc.phone.text,
+                    //                   password: signupbloc.password.text,
+                    //                   email: signupbloc.email.text,
+                    //                 )));
+                    //           } else {
+                    //             showTost(
+                    //                 message: AppStrings.signup.tr(),
+                    //                 state: ToastState.error);
+                    //           }
+                    //         },
+                    //         text: AppStrings.signup.tr(),
+                    //       )
                   ]),
                 ),
               ),

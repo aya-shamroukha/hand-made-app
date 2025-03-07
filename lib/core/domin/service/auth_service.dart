@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
-
 import 'package:dio/dio.dart';
-
 import 'package:hand_made_app/core/config/local_storage/shared_preferences.dart';
 import 'package:hand_made_app/core/domin/model/auth_model/login_model.dart';
 import 'package:hand_made_app/core/domin/model/auth_model/signup_model.dart';
@@ -100,3 +98,29 @@ class AuthServiceImpl extends AuthService {
     }
   }
 }
+// import 'package:dartz/dartz.dart';
+// import 'package:dio/dio.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+
+// Future<Either<ErrorModel, bool>> logIn(login) async {
+//   Dio dio = Dio();
+//   try {
+//     Response response = await dio.post('${baseUrl}customers/login',
+//         options: Options(sendTimeout: const Duration(seconds: 60), headers: {
+//           "Content-Type": "application/json",
+//           "Connection": "keep-alive"
+//         }),
+//         data: login.toJson());
+    
+//     if (response.statusCode == 200) {
+//       print(response.data);
+//       print(response.data['token']);
+//       await getIt.get<SharedPreferences>().setString('token', response.data['token']);
+//       return Right(true); // Return success
+//     } else {
+//       return Left(ErrorModel(message: 'The Status Code is not 200')); // Return error
+//     }
+//   } on DioException catch (e) {
+//     return Left(ExceptionModel(message: e.message.toString())); // Return error
+//   }
+// }
