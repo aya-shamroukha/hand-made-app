@@ -36,7 +36,7 @@ class SettingScreen extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .displayLarge!
-                      .copyWith(color: AppColor.brown),
+                      .copyWith(color: AppColor.primary),
                 ),
               ),
               SizedBox_Height(height: 40.h),
@@ -144,13 +144,18 @@ class SettingScreen extends StatelessWidget {
                                   .textTheme
                                   .displayMedium!
                                   .copyWith(color: AppColor.blodbrownText),
-                              dialogType: DialogType.question,
+                              // dialogType: DialogType.question,
                               animType: AnimType.rightSlide,
+                              customHeader: Icon(
+                                Icons.question_mark,
+                                color: AppColor.brownText,
+                                size: 100,
+                              ),
                               title: AppStrings.logoutsure.tr(),
                               btnCancelOnPress: () {},
                               btnCancelText: AppStrings.cancel.tr(),
                               btnOkColor: AppColor.primary,
-                              btnCancelColor: AppColor.blodbrownText,
+                              btnCancelColor: AppColor.brownText,
                               dialogBackgroundColor: AppColor.background)
                           .show();
                     },

@@ -8,6 +8,10 @@ class LogInSuccess extends LogInEvent {
   LogInSuccess(this.logInModel);
 }
 
+class CheckIfField extends LogInEvent {}
+
+class SubmitForm extends LogInEvent {}
+
 class LogInField extends LogInEvent {}
 
 class LogInLoading extends LogInEvent {}

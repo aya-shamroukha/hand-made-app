@@ -1,15 +1,14 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/resources/app_color.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
-    this.height = 40,
-    this.width = 340,
+    this.height,
+    this.width,
     required this.onPressed,
     this.background,
     required this.text,
@@ -25,14 +24,17 @@ class CustomButton extends StatelessWidget {
   final dynamic shape;
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return SizedBox(
-      height: height!.h,
-      width: width!.w,
+      height: height ?? screenHeight * 0.05,
+      width: width ?? screenWidth * 0.3,
       child: ElevatedButton(
         style: Theme.of(context).elevatedButtonTheme.style!.copyWith(
-            shape: WidgetStateProperty.all(RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(45),
-            )),
+            side: WidgetStateProperty.all(BorderSide(color: AppColor.primary)),
+            // shape: WidgetStateProperty.all(RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.circular(45),
+            // )),
             backgroundColor:
                 WidgetStateProperty.all(background ?? AppColor.primary)),
         child: Text(
@@ -40,7 +42,7 @@ class CustomButton extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .displaySmall!
-              .copyWith(color: textcolor ?? Colors.white, fontSize: 18),
+              .copyWith(color: textcolor ?? AppColor.background, fontSize: 18),
         ),
         onPressed: onPressed,
       ),

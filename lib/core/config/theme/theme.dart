@@ -37,16 +37,20 @@ ThemeData appTheme = ThemeData(
     ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      labelStyle: TextStyle(fontSize: 15.sp, color: AppColor.brownText),
+      border: InputBorder.none,
+      labelStyle: TextStyle(fontSize: 15.sp, color: AppColor.blodbrownText),
       fillColor: AppColor.background,
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+      outlineBorder: BorderSide(color: AppColor.primary),
+      activeIndicatorBorder: BorderSide(color: AppColor.primary),
+      focusColor: AppColor.primary,
+      enabledBorder: UnderlineInputBorder(
+          //  borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColor.primary)),
-      errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+      errorBorder: UnderlineInputBorder(
+          // borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColor.primary)),
-      focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+      focusedBorder: UnderlineInputBorder(
+          //  borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColor.primary)),
-      hintStyle: TextStyle(fontSize: 15.sp, color: AppColor.brownText),
+      hintStyle: TextStyle(fontSize: 13.sp, color: AppColor.blodbrownText),
     ));

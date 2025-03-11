@@ -36,6 +36,9 @@
 "Send":"ارسال",
   "Failed":"فشل",
   "Code":"الرمز",
+  "Order":"الطلبات",
+  "Home":"الصفحة الرئيسية",
+  "Change":"تغيير",
   "Enter New Password":"ادخل كلمة مرور جديدة",
   "name": "الاسم",
   "Profile": "الحساب",
@@ -70,5 +73,11 @@
   "Uncover an array of the finest fashion trends tailored just for you.":"نحن هنا الآن لنوفر لك تشكيلة متنوعة من أفضل الأزياء",
   "Swift and Reliable Delivery":"توصيل سريع وموثوق",
   "Experience the convenience of fast and reliable delivery services to your doorstep.":"توفر لك تجربة توصيل سريع وموثوق للطلبات بكل سهولة",
-  "Explore our smart, stylish, and trend setting collection that will elevate your look.":"مجموعة ذكية وجذابة وعصرية تجعلك أكثر أناقة"
+  "Explore our smart, stylish, and trend setting collection that will elevate your look.":"مجموعة ذكية وجذابة وعصرية تجعلك أكثر أناقة",
+  "Please choose image":"اختر صورة",
+"From Camera":"من الكاميرا",
+"From Gallery":"من الاستديو",
+"delete image":"حذف الصورة",
+"instructionsForTakePhoto":"عزيزي المستخدم، للحصول على نتيجة رائعة و مفيدة، يرجى التأكد من أن الصورة التي تقوم بالتقاطها واضحة وكاملة. تأكد من أن الإضاءة جيدة وأن الصورة مركزة، وأن جميع العناصر المهمة موجودة داخل الإطار. كلما كانت الصورة أفضل، كانت النتيجة النهائية أفضل!",
+"For a great and useful experience, please follow these instructions.":"من اجل تجربة رائعة ومفيدة الرجاء اتباع هذه التعليمات"
 }

@@ -10,7 +10,6 @@ import 'package:hand_made_app/feature/auth/bloc/signup_bloc/sign_up_state.dart';
 import 'package:hand_made_app/feature/share/custom_button.dart';
 import 'package:hand_made_app/feature/share/custom_text_field.dart';
 import 'package:hand_made_app/feature/share/my_loading.dart';
-import 'package:hand_made_app/feature/share/sized_box.dart';
 import 'package:hand_made_app/feature/share/toast.dart';
 
 import '../../../core/resources/app_color.dart';
@@ -21,6 +20,9 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
+
     return BlocProvider(
       create: (context) => SignUpBloc(),
       child: BlocConsumer<SignUpBloc, SignUpState>(
@@ -41,30 +43,16 @@ class SignupScreen extends StatelessWidget {
                 child: Form(
                   key: signupbloc.formkey,
                   child: Column(children: [
-                    // SizedBox_Height(height: 70.h),
+                    SizedBox(height: screenHeight * 0.05),
                     Center(
                       child: Image.asset(
                         AppAssets.splash,
-                        width: 300.w,
+                        width: screenWidth * 0.6,
                         fit: BoxFit.cover,
-                        height: 270.h,
+                        height: screenHeight * 0.3,
                       ),
                     ),
-                    // Center(
-                    //   child: Text(
-                    //     AppStrings.signup.tr(),
-                    //     textAlign: TextAlign.center,
-                    //     style: Theme.of(context).textTheme.displayLarge,
-                    //   ),
-                    // ),
-                    // SizedBox_Height(height: 20.h),
-                    // Text(
-                    //   AppStrings.creataccounttitle.tr(),
-                    //   textAlign: TextAlign.center,
-                    //   style: Theme.of(context).textTheme.displayMedium!,
-                    // ),
-                    //  SizedBox_Height(height: 50.h),
-                    //!username
+                    //  SizedBox(height: screenHeight * 0.05),
                     CustomTextfield(
                       labeltext: AppStrings.userName.tr(),
                       controller: signupbloc.username,
@@ -86,13 +74,11 @@ class SignupScreen extends StatelessWidget {
                         return null;
                       },
                     ),
-                    //!phone
                     CustomTextfield(
                       textInputType: TextInputType.number,
                       labeltext: AppStrings.phone.tr(),
                       controller: signupbloc.phone,
                     ),
-                    //!password
                     CustomTextfield(
                       validate: (val) {
                         if (val!.length < 8) {
@@ -119,12 +105,45 @@ class SignupScreen extends StatelessWidget {
                                   color: AppColor.primary,
                                 )),
                     ),
-                    Row(
+                    SizedBox(height: screenHeight * 0.1),
+                    state is SignUpLoadingState
+                        ? const Loading()
+                        : CustomButton(
+                            height: screenHeight * 0.05,
+                            width: screenWidth * 0.3,
+                            onPressed: () {
+                              if (BlocProvider.of<SignUpBloc>(context)
+                                  .formkey
+                                  .currentState!
+                                  .validate()) {
+                                context
+                                    .read<SignUpBloc>()
+                                    .add(SignUpSuccess(SignUpModel(
+                                      username: signupbloc.username.text,
+                                      phone_number: signupbloc.phone.text,
+                                      password: signupbloc.password.text,
+                                      email: signupbloc.email.text,
+                                    )));
+                              } else {
+                                showTost(
+                                    message: AppStrings.signup.tr(),
+                                    state: ToastState.error);
+                              }
+                            },
+                            text: AppStrings.signup.tr(),
+                          ),
+                    SizedBox(height: screenHeight * 0.03),
+                    Column(
                       children: [
-                        SizedBox_width(width: 20.w),
+                        SizedBox(width: screenWidth * 0.05),
                         Text(
                           AppStrings.alreadyhaveaccount.tr(),
-                          style: Theme.of(context).textTheme.displaySmall,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displaySmall!
+                              .copyWith(
+                                  fontSize: 13.sp,
+                                  color: AppColor.blodbrownText),
                         ),
                         TextButton(
                           onPressed: () {
@@ -136,52 +155,13 @@ class SignupScreen extends StatelessWidget {
                                 .textTheme
                                 .displayMedium!
                                 .copyWith(
-                                    color: AppColor.primary,
-                                    textBaseline: TextBaseline.alphabetic),
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColor.primary,
+                                    fontSize: 13.sp),
                           ),
                         )
                       ],
                     ),
-                    SizedBox_Height(height: 50.h),
-                    Container(
-                      height: 50.h,
-                      width: 55.w,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColor.primary),
-                          color: AppColor.primary,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: IconButton(
-                        icon:
-                            Icon(Icons.arrow_back, color: AppColor.background),
-                        onPressed: () {},
-                      ),
-                    ),
-                    // state is SignUpLoadingState
-                    //     ? const Loading()
-                    //     : CustomButton(
-                    //         height: 35.h,
-                    //         onPressed: () {
-                    //           if (BlocProvider.of<SignUpBloc>(context)
-                    //               .formkey
-                    //               .currentState!
-                    //               .validate()) {
-                    //             context
-                    //                 .read<SignUpBloc>()
-                    //                 .add(SignUpSuccess(SignUpModel(
-                    //                   name: 'aya',
-                    //                   username: signupbloc.username.text,
-                    //                   phone_number: signupbloc.phone.text,
-                    //                   password: signupbloc.password.text,
-                    //                   email: signupbloc.email.text,
-                    //                 )));
-                    //           } else {
-                    //             showTost(
-                    //                 message: AppStrings.signup.tr(),
-                    //                 state: ToastState.error);
-                    //           }
-                    //         },
-                    //         text: AppStrings.signup.tr(),
-                    //       )
                   ]),
                 ),
               ),

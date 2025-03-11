@@ -9,6 +9,7 @@ class AppStrings {
   static String signup = 'signUp';
   static String chooseLocation = 'Choose Location';
   static String or = 'OR';
+  static String change = 'Change';
   static String send = 'Send';
   static String useMyCrrunetLocation = 'Use My Crrunet Location';
   static String checkemailtext = 'Enter Your E-mail and we will send you code';
@@ -67,16 +68,24 @@ class AppStrings {
   static const String addtocart = 'Add To Cart';
   static const String comment = 'Comment';
   static const String search = 'Search';
-
+  static const String home = 'Home';
+  static const String order = 'Order';
   static const String category = 'Category';
   static const String logintitle = "Hi! Welcome back, you've been missed";
   static const String passwordisnotidentical = 'password is not identical';
   static const String passwordupper =
       'Password must contain at least one uppercase letter';
   static const String passwordlenght =
-      'Password must be at least 8 characters long';
+      'Password must be at least 5 characters long';
   static const String passwordchar =
       'Password must contain at least one special character';
   static const String confirmpassword = 'Confirm Password';
   static const String phone = 'Phone number';
+  static const String pleasechooseimage = "Please choose image";
+  static const String fromcamera = 'From Camera';
+  static const String fromGallery = 'From Gallery';
+  static const String deleteimage = 'delete image';
+  static const String instructionsForTakePhoto = 'instructionsForTakePhoto';
+  static const String pleaseForImage =
+      'For a great and useful experience, please follow these instructions.';
 }

@@ -6,13 +6,11 @@ class SignUpModel {
   String phone_number;
   String email;
   String password;
-  String name;
   SignUpModel({
     required this.username,
     required this.phone_number,
     required this.email,
     required this.password,
-    required this.name,
   });
 
   SignUpModel copyWith({
@@ -20,14 +18,12 @@ class SignUpModel {
     String? phone_number,
     String? email,
     String? password,
-    String? name,
   }) {
     return SignUpModel(
       username: username ?? this.username,
       phone_number: phone_number ?? this.phone_number,
       email: email ?? this.email,
       password: password ?? this.password,
-      name: name ?? this.name,
     );
   }
 
@@ -37,7 +33,6 @@ class SignUpModel {
       'phone_number': phone_number,
       'email': email,
       'password': password,
-      'name': name,
     };
   }
 
@@ -47,7 +42,6 @@ class SignUpModel {
       phone_number: map['phone_number'] as String,
       email: map['email'] as String,
       password: map['password'] as String,
-      name: map['name'] as String,
     );
   }
 
@@ -58,7 +52,7 @@ class SignUpModel {
 
   @override
   String toString() {
-    return 'SignUpModel(username: $username, phone_number: $phone_number, email: $email, password: $password, name: $name)';
+    return 'SignUpModel(username: $username, phone_number: $phone_number, email: $email, password: $password, )';
   }
 
   @override
@@ -68,8 +62,7 @@ class SignUpModel {
     return other.username == username &&
         other.phone_number == phone_number &&
         other.email == email &&
-        other.password == password &&
-        other.name == name;
+        other.password == password;
   }
 
   @override
@@ -77,7 +70,6 @@ class SignUpModel {
     return username.hashCode ^
         phone_number.hashCode ^
         email.hashCode ^
-        password.hashCode ^
-        name.hashCode;
+        password.hashCode;
   }
 }

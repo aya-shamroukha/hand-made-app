@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_made_app/core/config/local_storage/shared_preferences.dart';
 import 'package:hand_made_app/core/config/theme/theme.dart';
@@ -9,13 +10,17 @@ import 'package:hand_made_app/feature/auth/screen/forget_password_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/login_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/new_password_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/signup_screen.dart';
+import 'package:hand_made_app/feature/home/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:hand_made_app/feature/home/screen/bottom_bar.dart';
+import 'package:hand_made_app/feature/home/screen/categories_screen/categories_details.dart';
 import 'package:hand_made_app/feature/home/screen/location_screen.dart';
 import 'package:hand_made_app/feature/home/screen/setting_screen.dart';
 import 'package:hand_made_app/feature/on_boarding/on_boarding.dart';
 import 'package:hand_made_app/feature/on_boarding/splash_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'feature/home/bloc/image_picker_bloc/image_picker_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,7 +38,10 @@ void main() async {
       ],
       fallbackLocale: const Locale('en'),
       startLocale: const Locale('en'),
-      child: const MyApp()));
+      child: BlocProvider(
+        create: (context) => ImagePickerBloc()..add(GetImage()),
+        child: const MyApp(),
+      )));
 }
 
 class MyApp extends StatelessWidget {
@@ -61,6 +69,7 @@ class MyApp extends StatelessWidget {
               'onboaring': (context) => OnBoaringScreens(),
               'signup': (context) => const SignupScreen(),
               'bottom': (context) => const BottomNavBar(),
+              'categoriesdetails': (context) => const CategoriesDetails(),
               'ChangeLangScreen': (context) => const ChangeLangScreen(),
               'checkcode': (context) => CheckCodeScreen(),
               'newpassword': (context) => const NewPasswordScreen(),

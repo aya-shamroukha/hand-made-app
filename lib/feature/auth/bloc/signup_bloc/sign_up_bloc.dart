@@ -21,7 +21,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(SignUpLoadingState());
       final isSuccess = await AuthServiceImpl().signUp(event.signUpModel);
       print(isSuccess);
-      if (isSuccess) {
+      if (isSuccess.isRight()) {
         emit(SignUpSuccessState());
       } else {
         emit(SignUpFieldState());

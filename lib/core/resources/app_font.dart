@@ -36,6 +36,6 @@ TextStyle normalStyle({
   FontWeight fontweight = FontWeight.w300,
 }) =>
     textStyle(
-        color: color ?? AppColor.blodbrownText,
+        color: color ?? AppColor.brown,
         fontsize: fontsize.sp,
         fontWeight: fontweight);

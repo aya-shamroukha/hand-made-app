@@ -75,6 +75,7 @@ class _ChangeLangScreenState extends State<ChangeLangScreen> {
                 },
                 text: 'English',
                 width: 170,
+                textcolor: AppColor.lightbrownText,
                 height: 40,
               ),
               CustomButton(
@@ -94,6 +95,7 @@ class _ChangeLangScreenState extends State<ChangeLangScreen> {
                 text: 'العربية',
                 width: 170,
                 height: 40,
+                textcolor: AppColor.lightbrownText,
               ),
             ],
           )

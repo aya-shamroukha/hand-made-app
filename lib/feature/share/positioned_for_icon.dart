@@ -11,6 +11,8 @@ class PositionedForIcon extends StatelessWidget {
     this.left,
     required this.icon,
     this.onPressed,
+    this.color,
+    this.iconColor,
   });
   final double? top;
   final double? right;
@@ -18,6 +20,8 @@ class PositionedForIcon extends StatelessWidget {
   final double? left;
   final IconData icon;
   final VoidCallback? onPressed;
+  final Color? color;
+  final Color? iconColor;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -28,15 +32,18 @@ class PositionedForIcon extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: IconButton(
-            color: AppColor.blodbrownText,
+            color: AppColor.brownText,
             style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(
-              AppColor.blodbrownText,
+              color ?? AppColor.primary,
             )),
-            onPressed: onPressed,
+            onPressed: onPressed ??
+                () {
+                  Navigator.of(context).pop();
+                },
             icon: Icon(
               icon,
-              color: AppColor.background,
+              color: iconColor ?? AppColor.background,
               size: 20,
             )),
       ),

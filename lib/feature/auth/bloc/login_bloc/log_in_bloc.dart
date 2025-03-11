@@ -10,7 +10,7 @@ import 'log_in_state.dart';
 class LogInBloc extends Bloc<LogInEvent, LogInState> {
   bool isPassword = false;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-
+  bool isFormValid = false;
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   LogInBloc() : super(LogInInitial()) {
@@ -19,7 +19,7 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
       final isSuccess = await AuthServiceImpl().logIn(event.logInModel);
       print('----------------');
       print(isSuccess);
-      if (isSuccess) {
+      if (isSuccess.isRight()) {
         emit(LogInSuccessState());
       } else {
         emit(LogInFieldState());
@@ -31,5 +31,16 @@ class LogInBloc extends Bloc<LogInEvent, LogInState> {
         emit(PasswordState());
       },
     );
+    on<CheckIfField>((event, emit) {
+      final isVaild = formkey.currentState?.validate() ?? false;
+      isFormValid = isVaild;
+      print(' valid!');
+    });
+    on<SubmitForm>((event, emit) {
+      if (formkey.currentState?.validate() ?? false) {
+        // تنفيذ العملية عند النجاح
+        print('Form is valid!');
+      }
+    });
   }
 }

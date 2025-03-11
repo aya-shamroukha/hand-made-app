@@ -13,11 +13,13 @@ class CustomTextfield extends StatelessWidget {
     this.isScreat = false,
     this.prefixIcon,
     this.textInputType,
+    this.onchanged,
   });
 
   final String labeltext;
   final TextEditingController? controller;
   final dynamic validate;
+  final dynamic onchanged;
   final IconButton? suffixicon;
   final Icon? prefixIcon;
   final bool isScreat;
@@ -26,21 +28,19 @@ class CustomTextfield extends StatelessWidget {
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: (context, setstate) {
       return Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10),
         child: TextFormField(
+          //  key: BlocProvider.of<LogInBloc>(context).formkey,
           style: Theme.of(context).textTheme.displaySmall!,
           keyboardType: textInputType,
           validator: validate,
           obscureText: isScreat,
+          onChanged: onchanged,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           controller: controller,
           cursorColor: AppColor.primary,
           decoration: InputDecoration(
-              errorBorder: Theme.of(context).inputDecorationTheme.errorBorder,
-              focusedBorder:
-                  Theme.of(context).inputDecorationTheme.focusedBorder,
-              enabledBorder:
-                  Theme.of(context).inputDecorationTheme.enabledBorder,
+              border: InputBorder.none,
               hintText: labeltext,
               prefixIcon: prefixIcon,
               suffixIcon: suffixicon),

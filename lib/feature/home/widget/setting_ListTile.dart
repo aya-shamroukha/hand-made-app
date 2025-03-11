@@ -26,7 +26,7 @@ class SettingListTile extends StatelessWidget {
       ),
       trailing: Icon(
         Icons.arrow_forward_ios_sharp,
-        color: AppColor.brownText,
+        color: AppColor.blodbrownText,
         size: 16,
       ),
       title: Text(
@@ -34,7 +34,7 @@ class SettingListTile extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .displaySmall!
-            .copyWith(color: AppColor.blodbrownText),
+            .copyWith(color: AppColor.brown),
       ),
     );
   }

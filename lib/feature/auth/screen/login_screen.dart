@@ -16,11 +16,20 @@ import 'package:hand_made_app/feature/share/toast.dart';
 import '../../share/my_loading.dart';
 import '../bloc/login_bloc/log_in_event.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isFormValid = false;
+
+  @override
   Widget build(BuildContext context) {
+    var screenWidth = MediaQuery.of(context).size.width;
+    var screenHeight = MediaQuery.of(context).size.height;
     return BlocProvider(
       create: (context) => LogInBloc(),
       child: BlocConsumer<LogInBloc, LogInState>(
@@ -34,6 +43,20 @@ class LoginScreen extends StatelessWidget {
         },
         builder: (context, state) {
           var loginbloc = BlocProvider.of<LogInBloc>(context);
+          void submitForm() {
+            if (loginbloc.formkey.currentState?.validate() ?? false) {
+              // تنفيذ العملية عند النجاح
+              // ignore: avoid_print
+              print('Form is valid!');
+            }
+          }
+
+          void checkFormValidity() {
+            final isValid = loginbloc.formkey.currentState?.validate() ?? false;
+            setState(() {
+              isFormValid = isValid;
+            });
+          }
 
           return Form(
             key: loginbloc.formkey,
@@ -46,55 +69,47 @@ class LoginScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        SizedBox_Height(height: screenHeight * 0.05),
                         Center(
                           child: Image.asset(
                             AppAssets.splash,
-                            width: 300.w,
+                            width: screenWidth * 0.6,
                             fit: BoxFit.cover,
-                            height: 270.h,
+                            height: screenHeight * 0.3,
                           ),
                         ),
-                        // SizedBox_Height(height: 20.h),
-                        // Center(
-                        //   child: Text(AppStrings.login.tr(),
-                        //       style: Theme.of(context).textTheme.displayLarge!),
-                        // ),
-                        // SizedBox_Height(height: 20.h),
-                        Row(
-                          children: [
-                            SizedBox_width(width: 10.w),
-                            SizedBox(
-                              width: 330.w,
-                              child: Text(AppStrings.logintitle.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium!),
-                            ),
-                          ],
-                        ),
-                        SizedBox_Height(height: 20.h),
+
+                        SizedBox_Height(height: screenHeight * 0.02),
 
                         CustomTextfield(
                           textInputType: TextInputType.emailAddress,
                           labeltext: AppStrings.userName.tr(),
                           controller: loginbloc.username,
                           validate: (val) {
-                            if (val.isEmpty && !val.contains('@gmail.com')) {
+                            if (val.isEmpty && val == null) {
                               return AppStrings.nameErrorMsg;
                             }
                             return null;
+                          },
+                          onchanged: (val) {
+                            checkFormValidity();
+                            //context.read<LogInBloc>().add(CheckIfField());
                           },
                         ),
 
                         //!password
                         CustomTextfield(
-                          //  validate: (val) {
-                          //   if (val!.length < 8) {
-                          //     return AppStrings.passwordlenght.tr();
-                          //   }
+                          validate: (val) {
+                            if (val!.length < 5 || val == null) {
+                              return AppStrings.passwordlenght.tr();
+                            }
 
-                          //   return null;
-                          // },
+                            return null;
+                          },
+                          onchanged: (val) {
+                            checkFormValidity();
+                            //  context.read<LogInBloc>().add(CheckIfField());
+                          },
                           labeltext: AppStrings.password.tr(),
                           controller: loginbloc.password,
                           isScreat: loginbloc.isPassword,
@@ -114,10 +129,10 @@ class LoginScreen extends StatelessWidget {
                                       color: AppColor.primary,
                                     )),
                         ),
-                        SizedBox_Height(height: 10.h),
+                        SizedBox_Height(height: screenHeight * 0.02),
                         Row(
                           children: [
-                            SizedBox_width(width: 10.w),
+                            SizedBox_width(width: screenWidth * 0.04),
                             InkWell(
                               onTap: () {
                                 Navigator.of(context)
@@ -128,17 +143,72 @@ class LoginScreen extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .displaySmall!
-                                    .copyWith(fontSize: 13),
+                                    .copyWith(
+                                      fontSize: 13,
+                                      color: AppColor.brownText,
+                                      decorationColor: AppColor.primary,
+                                      decoration: TextDecoration.underline,
+                                    ),
                               ),
                             ),
                           ],
                         ),
-                        Row(
+
+                        SizedBox_Height(height: screenHeight * 0.14),
+                        state is LogInLoadingState
+                            ? const Loading()
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: CustomButton(
+                                    onPressed: () {
+                                      if (BlocProvider.of<LogInBloc>(context)
+                                          .formkey
+                                          .currentState!
+                                          .validate()) {
+                                        context
+                                            .read<LogInBloc>()
+                                            .add(LogInSuccess(LogInModel(
+                                              username: loginbloc.username.text,
+                                              password: loginbloc.password.text,
+                                            )));
+                                        isFormValid ? submitForm : null;
+                                        Navigator.of(context)
+                                            .pushNamed('bottom');
+                                      } else {
+                                        showTost(
+                                            message:
+                                                AppStrings.loginFailed.tr(),
+                                            state: ToastState.error);
+                                      }
+                                    },
+                                    text: AppStrings.login.tr(),
+                                    textcolor: isFormValid
+                                        ? AppColor.lightbrownText
+                                        : AppColor.primary,
+                                    height: screenHeight * 0.05,
+                                    background: isFormValid
+                                        ? AppColor.primary
+                                        : AppColor.background,
+                                    width: screenWidth * 0.3,
+                                  ),
+                                ),
+                              ),
+                        SizedBox_Height(height: screenHeight * 0.03),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox_width(width: 10.w),
-                            Text(
-                              AppStrings.donthaveaccount.tr(),
-                              style: Theme.of(context).textTheme.displaySmall,
+                            Center(
+                              child: Text(
+                                AppStrings.donthaveaccount.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall!
+                                    .copyWith(
+                                        fontSize: 13.sp,
+                                        color: AppColor.blodbrownText),
+                              ),
                             ),
                             TextButton(
                               onPressed: () {
@@ -151,41 +221,13 @@ class LoginScreen extends StatelessWidget {
                                     .displaySmall!
                                     .copyWith(
                                         color: AppColor.primary,
-                                        textBaseline: TextBaseline.alphabetic),
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: AppColor.primary,
+                                        fontSize: 13.sp),
                               ),
                             )
                           ],
                         ),
-                        SizedBox_Height(height: 90.h),
-                        // state is LogInLoadingState
-                        //     ? const Loading()
-                        //     :
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CustomButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('bottom');
-                            },
-                            //   if (BlocProvider.of<LogInBloc>(context)
-                            //       .formkey
-                            //       .currentState!
-                            //       .validate()) {
-                            //     context
-                            //         .read<LogInBloc>()
-                            //         .add(LogInSuccess(LogInModel(
-                            //           username: loginbloc.username.text,
-                            //           password: loginbloc.password.text,
-                            //         )));
-                            //   } else {
-                            //     showTost(
-                            //         message: AppStrings.loginFailed.tr(),
-                            //         state: ToastState.error);
-                            //   }
-                            // },
-                            text: AppStrings.login.tr(),
-                            height: 40,
-                          ),
-                        )
                       ],
                     ),
                   ),
