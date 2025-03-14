@@ -110,7 +110,7 @@ class SignupScreen extends StatelessWidget {
                         ? const Loading()
                         : CustomButton(
                             height: screenHeight * 0.05,
-                            width: screenWidth * 0.3,
+                            width: screenWidth * 0.4,
                             onPressed: () {
                               if (BlocProvider.of<SignUpBloc>(context)
                                   .formkey

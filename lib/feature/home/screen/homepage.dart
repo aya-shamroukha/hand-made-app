@@ -40,11 +40,11 @@ class HomepageScreen extends StatelessWidget {
             // ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Center(
                 child: Container(
                   height: screenHeight * 0.17,
-                  width: screenWidth * 0.8,
+                  width: screenWidth * 0.9,
                   decoration: BoxDecoration(
                       color: AppColor.lightbrownText,
                       borderRadius: BorderRadius.circular(20),
@@ -56,26 +56,46 @@ class HomepageScreen extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed('categoriesdetails');
-              },
-              child: Container(
-                height: screenHeight * 0.17,
-                width: screenWidth * 0.8,
-                decoration: BoxDecoration(
-                    color: AppColor.lightbrownText,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColor.brownText)),
-                child: Row(
-                  children: [
-                    const Text('data'),
-                    Image.asset(
-                      AppAssets.change,
-                      fit: BoxFit.contain,
+            Expanded(
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('categoriesbyid');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      child: Container(
+                        height: screenHeight * 0.17,
+                        width: screenWidth * 0.06,
+                        decoration: BoxDecoration(
+                            color: AppColor.lightbrownText,
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: AppColor.brownText)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text(
+                                'فازة لوضع الزهور',
+                                style:
+                                    Theme.of(context).textTheme.displayMedium,
+                              ),
+                              Image.asset(
+                                'assets/images/v.png',
+                                width: screenWidth * 0.4,
+                                height: screenHeight * 1,
+                                fit: BoxFit.contain,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
             )
           ],

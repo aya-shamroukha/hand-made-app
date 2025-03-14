@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/config/local_storage/shared_preferences.dart';
 import '../../core/resources/app_color.dart';
 
 class PositionedForIcon extends StatelessWidget {
@@ -9,7 +11,7 @@ class PositionedForIcon extends StatelessWidget {
     this.right,
     this.bottom,
     this.left,
-    required this.icon,
+    this.icon,
     this.onPressed,
     this.color,
     this.iconColor,
@@ -18,7 +20,7 @@ class PositionedForIcon extends StatelessWidget {
   final double? right;
   final double? bottom;
   final double? left;
-  final IconData icon;
+  final IconData? icon;
   final VoidCallback? onPressed;
   final Color? color;
   final Color? iconColor;
@@ -26,8 +28,10 @@ class PositionedForIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       top: top,
-      right: right,
-      left: left,
+      left: getIt.get<SharedPreferences>().getString('languagecode') == 'ar'
+          ? 0
+          : 0,
+      right: null,
       bottom: bottom,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -42,7 +46,9 @@ class PositionedForIcon extends StatelessWidget {
                   Navigator.of(context).pop();
                 },
             icon: Icon(
-              icon,
+              getIt.get<SharedPreferences>().getString('languagecode') == 'ar'
+                  ? Icons.arrow_forward
+                  : Icons.arrow_back,
               color: iconColor ?? AppColor.background,
               size: 20,
             )),

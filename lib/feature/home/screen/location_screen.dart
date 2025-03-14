@@ -224,6 +224,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
           body: Stack(children: [
@@ -291,12 +292,13 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
         ),
         PositionedForIcon(
-          icon: Icons.arrow_back,
+          left: 0,
+          top: screenHeight * 0.01,
+          iconColor: AppColor.blodbrownText,
+          color: AppColor.brownText,
           onPressed: () {
             Navigator.of(context).pushReplacementNamed('bottom');
           },
-          top: 10,
-          left: 0,
         ),
         Positioned(
           bottom: 15,

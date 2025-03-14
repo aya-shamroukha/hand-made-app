@@ -43,20 +43,6 @@ class _LoginScreenState extends State<LoginScreen> {
         },
         builder: (context, state) {
           var loginbloc = BlocProvider.of<LogInBloc>(context);
-          void submitForm() {
-            if (loginbloc.formkey.currentState?.validate() ?? false) {
-              // تنفيذ العملية عند النجاح
-              // ignore: avoid_print
-              print('Form is valid!');
-            }
-          }
-
-          void checkFormValidity() {
-            final isValid = loginbloc.formkey.currentState?.validate() ?? false;
-            setState(() {
-              isFormValid = isValid;
-            });
-          }
 
           return Form(
             key: loginbloc.formkey,
@@ -91,10 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                             return null;
                           },
-                          onchanged: (val) {
-                            checkFormValidity();
-                            //context.read<LogInBloc>().add(CheckIfField());
-                          },
                         ),
 
                         //!password
@@ -105,10 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
 
                             return null;
-                          },
-                          onchanged: (val) {
-                            checkFormValidity();
-                            //  context.read<LogInBloc>().add(CheckIfField());
                           },
                           labeltext: AppStrings.password.tr(),
                           controller: loginbloc.password,
@@ -172,7 +150,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                               username: loginbloc.username.text,
                                               password: loginbloc.password.text,
                                             )));
-                                        isFormValid ? submitForm : null;
                                         Navigator.of(context)
                                             .pushNamed('bottom');
                                       } else {
@@ -183,14 +160,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       }
                                     },
                                     text: AppStrings.login.tr(),
-                                    textcolor: isFormValid
-                                        ? AppColor.lightbrownText
-                                        : AppColor.primary,
                                     height: screenHeight * 0.05,
-                                    background: isFormValid
-                                        ? AppColor.primary
-                                        : AppColor.background,
-                                    width: screenWidth * 0.3,
+                                    width: screenWidth * 0.4,
                                   ),
                                 ),
                               ),

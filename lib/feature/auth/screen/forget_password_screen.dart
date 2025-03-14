@@ -27,10 +27,15 @@ class ForgetPasswordScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  PositionedForIcon(
-                      icon: Icons.arrow_back,
-                      left: 0,
-                      top: screenHeight * 0.04),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox_width(
+                        width: 100.w,
+                      ),
+                      PositionedForIcon(top: screenHeight * 0.04),
+                    ],
+                  ),
                   SizedBox_Height(height: 60.h),
                   Image.asset(AppAssets.forgetPassword),
                   SizedBox_Height(height: 30.h),

@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,6 +25,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
         add(SaveImage(val: pickedimage2.path.toString()));
 
         image = File(pickedimage2.path);
+        add(GetImage());
       } else {}
       emit(UploadImagegalleryState());
     });
@@ -39,6 +38,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           add(SaveImage(val: pickedimage.path.toString()));
 
           image = File(pickedimage.path);
+          add(GetImage());
         } else {}
         emit(UploadImageGalleryCameraState());
       },
@@ -49,13 +49,15 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
         imageshared.setString('path', event.val);
         add(GetImage());
         emit(SaveImageState());
+        add(GetImage());
       },
     );
     on<GetImage>(
       (event, emit) async {
+        print('Fetching image...');
         final imageshared = await SharedPreferences.getInstance();
-
         imagePath = imageshared.getString('path');
+        print('Image path: $imagePath');
         emit(GetImageState());
       },
     );

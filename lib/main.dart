@@ -12,6 +12,7 @@ import 'package:hand_made_app/feature/auth/screen/new_password_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/signup_screen.dart';
 import 'package:hand_made_app/feature/home/bloc/image_picker_bloc/image_picker_bloc.dart';
 import 'package:hand_made_app/feature/home/screen/bottom_bar.dart';
+import 'package:hand_made_app/feature/home/screen/categories_screen/categories_by_id.dart';
 import 'package:hand_made_app/feature/home/screen/categories_screen/categories_details.dart';
 import 'package:hand_made_app/feature/home/screen/location_screen.dart';
 import 'package:hand_made_app/feature/home/screen/setting_screen.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
               'ChangeLangScreen': (context) => const ChangeLangScreen(),
               'checkcode': (context) => CheckCodeScreen(),
               'newpassword': (context) => const NewPasswordScreen(),
+              'categoriesbyid': (context) => const CategoriesById(),
               'forgetpassword': (context) => const ForgetPasswordScreen()
             },
           );
