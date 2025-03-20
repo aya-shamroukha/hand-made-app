@@ -44,6 +44,7 @@ dependencies:
   flutter_spinkit:
   easy_localization:
   dio:
+  path_provider:
   http: 
   awesome_dialog:
   curved_navigation_bar:
@@ -53,6 +54,7 @@ dependencies:
   geolocator: 
   geocoding:
   flutter_map:  
+  flutter_rating_bar:
   background_locator_2:
   pinput: ^5.0.0
   latlong2: ^0.9.1

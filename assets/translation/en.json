@@ -11,11 +11,11 @@
 "Skip":"Skip",
 "My Location":"My Location",
 "My order":"My order",
-"Forget password":"Forget password?",
-  "Elevate Your Shopping Experience":"Elevate Your Shopping Experience",
-  "Discover the Latest Trends":"Discover the Latest Trends",
+"Forget password":"Forgot password?",
+  "Welcome to the World of Handcrafted Creativity!":"Welcome to the World of Handcrafted Creativity!",
+  "Shop Now and Discover Unique Handicrafts":"Shop Now and Discover Unique Handicrafts",
   "Uncover an array of the finest fashion trends tailored just for you.":"Uncover an array of the finest fashion trends tailored just for you.",
-  "Swift and Reliable Delivery":"Swift and Reliable Delivery",
+  "Featured Products for You":"Featured Products for You",
   "Experience the convenience of fast and reliable delivery services to your doorstep.":"Experience the convenience of fast and reliable delivery services to your doorstep.",
   "Explore our smart, stylish, and trend setting collection that will elevate your look.":"Explore our smart, stylish, and trend setting collection that will elevate your look.",
  
@@ -88,5 +88,12 @@
 "From Gallery":"From Gallery",
 "delete image":"Delete image",
 "For a great and useful experience, please follow these instructions.":"For a great and useful experience, please follow these instructions.",
-"instructionsForTakePhoto":"Dear user, to achieve a great result, please ensure that the photo you take is clear and complete. Make sure the lighting is good, the image is focused, and all important elements are included within the frame. The better the photo, the better the final result will be!"
+"instructionsForTakePhoto":"Dear user, to achieve a great result, please ensure that the photo you take is clear and complete. Make sure the lighting is good, the image is focused, and all important elements are included within the frame. The better the photo, the better the final result will be!",
+"discount":"Discount",
+"bazaar":"Bazaar",
+"add to cart":"Add to cart",
+"try again":"Try again",
+"Total Price":"Total Price",
+"Confirm Order":"Confirm Order",
+"Comment":"Comments"
 }

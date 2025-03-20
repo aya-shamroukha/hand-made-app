@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,10 +53,8 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
     );
     on<GetImage>(
       (event, emit) async {
-        print('Fetching image...');
         final imageshared = await SharedPreferences.getInstance();
         imagePath = imageshared.getString('path');
-        print('Image path: $imagePath');
         emit(GetImageState());
       },
     );

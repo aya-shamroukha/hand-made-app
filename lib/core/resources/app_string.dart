@@ -48,13 +48,13 @@ class AppStrings {
   static String delete = 'Delete';
   static String edit = 'Edit';
 
-  static const String on1title = 'Elevate Your Shopping Experience';
+  static const String on1title = 'Welcome to the World of Handcrafted Creativity!';
   static const String on1subtitle =
       'Explore our smart, stylish, and trend setting collection that will elevate your look.';
-  static const String on2title = 'Discover the Latest Trends';
+  static const String on2title = 'Shop Now and Discover Unique Handicrafts';
   static const String on2subtitle =
       'Uncover an array of the finest fashion trends tailored just for you.';
-  static const String on3title = 'Swift and Reliable Delivery';
+  static const String on3title = 'Featured Products for You';
   static const String on3subtitle =
       'Experience the convenience of fast and reliable delivery services to your doorstep.';
   static const String productDetails = 'Product Details :';
@@ -65,7 +65,6 @@ class AppStrings {
   static const String description = 'Description';
   static const String size = 'Size';
   static const String cost = 'Cost';
-  static const String addtocart = 'Add To Cart';
   static const String comment = 'Comment';
   static const String search = 'Search';
   static const String home = 'Home';
@@ -88,4 +87,10 @@ class AppStrings {
   static const String instructionsForTakePhoto = 'instructionsForTakePhoto';
   static const String pleaseForImage =
       'For a great and useful experience, please follow these instructions.';
+      static String discount = 'discount';
+      static String bazaar = 'bazaar';
+      static String addtocart = 'add to cart';
+      static String tryagain = 'try again';
+      static String totalPrice = 'Total Price';
+      static String confirmOrder = 'Confirm Order';
 }

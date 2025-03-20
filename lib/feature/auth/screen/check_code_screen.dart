@@ -47,7 +47,7 @@ class CheckCodeScreen extends StatelessWidget {
                   Center(
                     child: Pinput(
                       controller: _pinController,
-                      length: 4, // Number of input fields
+                      length: 6, // Number of input fields
                       onCompleted: (pin) {
                         // Handle the completed PIN
                         print('---------------');

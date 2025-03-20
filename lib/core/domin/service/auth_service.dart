@@ -11,7 +11,10 @@ abstract class AuthService {
   logOut();
   signUp(SignUpModel signup);
   logIn(LogInModel login);
-  late String baseUrl = 'http://199.192.19.220:85/';
+  sendEmail();
+  sendCode();
+  sendPassword();
+  late String baseUrl = 'http://199.192.19.220:5400/';
 }
 
 class AuthServiceImpl extends AuthService {
@@ -96,5 +99,21 @@ class AuthServiceImpl extends AuthService {
       print(ExceptionModel(message: e.message.toString()).message);
       return false;
     }
+  }
+  
+  @override
+  sendCode() {
+
+  }
+  
+  @override
+  sendEmail() {
+  
+  }
+  
+  @override
+  sendPassword() {
+ 
+    throw UnimplementedError();
   }
 }

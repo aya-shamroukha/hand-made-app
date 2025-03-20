@@ -5,8 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_made_app/core/resources/app_color.dart';
 import 'package:hand_made_app/core/resources/app_string.dart';
-import 'package:hand_made_app/feature/auth/screen/login_screen.dart';
 import 'package:hand_made_app/feature/home/screen/homepage.dart';
+import 'package:hand_made_app/feature/home/screen/odrer_screen.dart';
 import 'package:hand_made_app/feature/home/screen/setting_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -27,7 +27,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   var screen = [
     const HomepageScreen(),
-    const LoginScreen(),
+    const OrderScreen(),
     const SettingScreen(),
   ];
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();

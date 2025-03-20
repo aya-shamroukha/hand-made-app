@@ -10,18 +10,19 @@ import 'package:hand_made_app/feature/auth/screen/forget_password_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/login_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/new_password_screen.dart';
 import 'package:hand_made_app/feature/auth/screen/signup_screen.dart';
-import 'package:hand_made_app/feature/home/bloc/image_picker_bloc/image_picker_bloc.dart';
+import 'package:hand_made_app/feature/categories/screen/ai_screen.dart';
 import 'package:hand_made_app/feature/home/screen/bottom_bar.dart';
-import 'package:hand_made_app/feature/home/screen/categories_screen/categories_by_id.dart';
-import 'package:hand_made_app/feature/home/screen/categories_screen/categories_details.dart';
+import 'package:hand_made_app/feature/categories/screen/categories_by_id.dart';
+import 'package:hand_made_app/feature/categories/screen/categories_details.dart';
 import 'package:hand_made_app/feature/home/screen/location_screen.dart';
+import 'package:hand_made_app/feature/home/screen/sale.dart';
 import 'package:hand_made_app/feature/home/screen/setting_screen.dart';
 import 'package:hand_made_app/feature/on_boarding/on_boarding.dart';
 import 'package:hand_made_app/feature/on_boarding/splash_screen.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'feature/home/bloc/image_picker_bloc/image_picker_event.dart';
+import 'feature/categories/bloc/add_new_comment/add_new_comment_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,9 @@ void main() async {
       fallbackLocale: const Locale('en'),
       startLocale: const Locale('en'),
       child: BlocProvider(
-        create: (context) => ImagePickerBloc()..add(GetImage()),
+    
+                create: (context) => AddNewCommentBloc(),
+              
         child: const MyApp(),
       )));
 }
@@ -75,7 +78,11 @@ class MyApp extends StatelessWidget {
               'checkcode': (context) => CheckCodeScreen(),
               'newpassword': (context) => const NewPasswordScreen(),
               'categoriesbyid': (context) => const CategoriesById(),
-              'forgetpassword': (context) => const ForgetPasswordScreen()
+              'forgetpassword': (context) => const ForgetPasswordScreen(),
+                            'ai': (context) => const Ai(),
+                                                        'sal': (context) => const Sale()
+
+
             },
           );
         });
