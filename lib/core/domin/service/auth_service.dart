@@ -7,13 +7,15 @@ import 'package:hand_made_app/core/domin/model/auth_model/signup_model.dart';
 import 'package:hand_made_app/core/domin/model/error_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/auth_model/reset_password_model.dart';
+
 abstract class AuthService {
   logOut();
   signUp(SignUpModel signup);
   logIn(LogInModel login);
-  sendEmail();
-  sendCode();
-  sendPassword();
+  sendEmail(SendEmailModel email);
+  sendCode(SendCodeModel code);
+  sendPassword(SendPasswordModel password);
   late String baseUrl = 'http://199.192.19.220:5400/';
 }
 
@@ -100,20 +102,82 @@ class AuthServiceImpl extends AuthService {
       return false;
     }
   }
-  
-  @override
-  sendCode() {
 
-  }
-  
   @override
-  sendEmail() {
-  
+  sendCode(code) async {
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(
+        '${baseUrl}reset/code',
+        data: code.toJson(),
+        options: Options(sendTimeout: const Duration(seconds: 60), headers: {
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(response);
+
+        return true;
+      } else {
+        return 
+            ErrorModel(message: 'The Status Code is not 200'); // Return error
+      }
+    } on DioException catch (e) {
+      return Left(ErrorModel(message: e.message.toString())); // Return error
+    }
   }
-  
+
   @override
-  sendPassword() {
- 
-    throw UnimplementedError();
+ sendEmail(email) async {
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(
+        '${baseUrl}reset/email',
+        data: email.toJson(),
+        options: Options(sendTimeout: const Duration(seconds: 60), headers: {
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+        }),
+      );
+       if (response.statusCode == 200) {
+        print(response);
+
+        return true;
+      } else {
+        print(ErrorModel(message: 'The Status Code is not 200').message);
+        return false;
+      }
+    } on DioException catch (e) {
+      print(ExceptionModel(message: e.message.toString()).message);
+      return false;
+    
+    }
+  }
+
+  @override
+  sendPassword(password) async {
+    Dio dio = Dio();
+    try {
+      Response response = await dio.post(
+        '${baseUrl}reset/password',
+        data: password.toJson(),
+        options: Options(sendTimeout: const Duration(seconds: 60), headers: {
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+        }),
+      );
+      if (response.statusCode == 200) {
+        print(response);
+
+        return true;
+      } else {
+        print(ErrorModel(message: 'The Status Code is not 200').message);
+        return false;
+      }
+    } on DioException catch (e) {
+      print(ExceptionModel(message: e.message.toString()).message);
+      return false;
+    }
   }
 }

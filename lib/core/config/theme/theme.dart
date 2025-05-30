@@ -32,18 +32,21 @@ ThemeData appTheme = ThemeData(
           backgroundColor: AppColor.primary,
           textStyle: TextStyle(color: AppColor.white, fontSize: 30.sp),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(30),
           )),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      filled: true,
+      // filled: true,
       border: InputBorder.none,
+
       labelStyle: TextStyle(fontSize: 15.sp, color: AppColor.blodbrownText),
       fillColor: AppColor.background,
       outlineBorder: BorderSide(color: AppColor.primary),
       activeIndicatorBorder: BorderSide(color: AppColor.primary),
       focusColor: AppColor.primary,
+
       enabledBorder: UnderlineInputBorder(
+
           //  borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: AppColor.primary)),
       errorBorder: UnderlineInputBorder(

@@ -3,12 +3,13 @@ import 'dart:convert';
 
 class GetHandCraftdetailModel {
   final int id;
-  final int handcraft_count;
+  late final int handcraft_count;
   final String handcraft_name;
   final String handcraft_price;
   final String handcraft_image;
   final dynamic discounts;
-  final double discounted_price;
+  final dynamic discounted_price;
+   int quantity;
   GetHandCraftdetailModel({
     required this.id,
     required this.handcraft_count,
@@ -17,6 +18,7 @@ class GetHandCraftdetailModel {
     required this.handcraft_image,
     required this.discounts,
     required this.discounted_price,
+    this.quantity = 1
   });
 
   GetHandCraftdetailModel copyWith({
@@ -26,7 +28,7 @@ class GetHandCraftdetailModel {
     String? handcraft_price,
     String? handcraft_image,
     dynamic discounts,
-    double? discounted_price,
+    dynamic discounted_price,
   }) {
     return GetHandCraftdetailModel(
       id: id ?? this.id,
@@ -59,7 +61,7 @@ class GetHandCraftdetailModel {
       handcraft_price: map['handcraft_price'] as String,
       handcraft_image: map['handcraft_image'] as String,
       discounts: map['discounts'] as dynamic,
-      discounted_price: map['discounted_price'] as double,
+      discounted_price: map['discounted_price'] as dynamic,
     );
   }
 

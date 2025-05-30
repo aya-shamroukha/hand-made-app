@@ -9,6 +9,7 @@ import 'add_new_comment_state.dart';
 
 class AddNewCommentBloc extends Bloc<AddNewCommentEvent, AddNewCommentState> {
   AddNewCommentBloc() : super(AddNewCommentInitial()) {
+    //!getcomment
     on<GetCommentSuccessEvent>((event, emit) async {
       emit(GetCommentLoadingState());
       try {
@@ -24,6 +25,7 @@ class AddNewCommentBloc extends Bloc<AddNewCommentEvent, AddNewCommentState> {
         emit(GetCommentFieldState());
       }
     });
+    //!addcomment
     on<AddNewCommentSuccessEvent>(
       (event, emit) async {
         emit(AddNewCommentLoadingState());
@@ -31,11 +33,47 @@ class AddNewCommentBloc extends Bloc<AddNewCommentEvent, AddNewCommentState> {
           final isSuccess = await CategoriesImpl().addComment(event.addComment);
           print('----------------');
           print(isSuccess);
-
-          emit(AddNewCommentSuccessState());
+          if (isSuccess) {
+            emit(AddNewCommentSuccessState());
+          }
         } catch (e) {
           print(e.toString());
           emit(AddNewCommentFieldState());
+        }
+      },
+    );
+    //!deletecomment
+    on<DeleteCommentEvent>(
+      (event, emit) async {
+        emit(DeleteCommentLoadingState());
+        try {
+          final isSuccess = await CategoriesImpl().deleteComment(event.id);
+          print('----------------');
+          print(isSuccess);
+          if (isSuccess == true) {
+            emit(DeleteCommentSuccessState());
+          }
+        } catch (e) {
+          print(e.toString());
+          emit(DeleteCommentErrorState());
+        }
+      },
+    );
+    //!update
+    on<UpdateCommentEvent>(
+      (event, emit) async {
+        emit(UpdateCommentLoadingState());
+        try {
+          final isSuccess = await CategoriesImpl()
+              .upDateComment(event.commentId, event.model);
+          print('----------------');
+          print(isSuccess);
+          if (isSuccess == true) {
+            emit(UpdateCommentSuccessState());
+          }
+        } catch (e) {
+          print(e.toString());
+          emit(UpdateCommentErrorState());
         }
       },
     );

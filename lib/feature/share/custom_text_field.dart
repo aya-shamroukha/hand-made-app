@@ -14,6 +14,7 @@ class CustomTextfield extends StatelessWidget {
     this.prefixIcon,
     this.textInputType,
     this.onchanged,
+    this.keytext,
   });
 
   final String labeltext;
@@ -24,13 +25,14 @@ class CustomTextfield extends StatelessWidget {
   final Icon? prefixIcon;
   final bool isScreat;
   final TextInputType? textInputType;
+  final Key? keytext;
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(builder: (context, setstate) {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 10),
         child: TextFormField(
-          //  key: BlocProvider.of<LogInBloc>(context).formkey,
+          autocorrect: false,
           style: Theme.of(context).textTheme.displaySmall!,
           keyboardType: textInputType,
           validator: validate,

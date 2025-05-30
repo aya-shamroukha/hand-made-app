@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hand_made_app/feature/categories/bloc/get_rating_bloc/get_rating_state.dart';
 
-import '../../../../core/domin/model/categories_model/get_rating_model.dart';
 import '../../../../core/domin/service/categories_service.dart';
 import 'get_rating_event.dart';
 
@@ -12,7 +11,7 @@ class GetRatingBloc extends Bloc<GetRatingEvent, GetRatingState> {
       try {
         var rating = await CategoriesImpl().getRating(event.id);
         print(rating);
-        double ratingg = rating['data']as double;
+        dynamic ratingg = rating['data'] as dynamic;
         emit(GetRatingSuccessState(rating: ratingg));
         print('------------------------------------------');
         print(ratingg);
@@ -21,5 +20,20 @@ class GetRatingBloc extends Bloc<GetRatingEvent, GetRatingState> {
         emit(GetRatingFieldState());
       }
     });
+    on<AddRatingEvent>(
+      (event, emit) async {
+        emit(AddRatingLoadingState());
+        try {
+          var rating = await CategoriesImpl().addRating(event.getRatingModel);
+          print(rating);
+
+          emit(AddRatingSuccessState());
+          print('------------------------------------------');
+        } catch (e) {
+          print(e.toString());
+          emit(AddRatingFieldState());
+        }
+      },
+    );
   }
 }

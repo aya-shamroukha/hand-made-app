@@ -53,6 +53,7 @@ dependencies:
   smooth_page_indicator:
   geolocator: 
   geocoding:
+  equatable:
   flutter_map:  
   flutter_rating_bar:
   background_locator_2:
@@ -60,6 +61,7 @@ dependencies:
   latlong2: ^0.9.1
   dartz:
   image_picker:
+  sqflite:
  
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,5 @@
-
 import 'package:dio/dio.dart';
 import 'package:hand_made_app/core/domin/model/ai_model/ai_model.dart';
-
 
 import '../model/error_model.dart';
 
@@ -15,8 +13,10 @@ class AiImpl extends AiService {
   sofaPillow(aimodel) async {
     FormData formData = FormData.fromMap(aimodel.toMultipartData());
     Dio dio = Dio();
+    try{
+
     final response = await dio.post(
-      'http://199.192.19.220:5400/ml_model/sofaPillowImage/',
+      'http://199.192.19.220:5400//ml_model/sofaPillowImage/',
       data: formData,
       options: Options(
         headers: {
@@ -25,15 +25,17 @@ class AiImpl extends AiService {
         },
       ),
     );
-
     if (response.statusCode == 200) {
-      // print(response.toString());
+      print('true 200');
       return response.data;
     } else {
       return ErrorModel(
           message: 'The Status Code is not 200. Please check the endpoint.');
     }
+    }on DioException catch (e) {
+      print(ErrorModel(message: e.message.toString()));
+      return 'false'; // Return error
+    }
+
   }
 }
-
-

@@ -5,8 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:hand_made_app/core/resources/app_color.dart';
 import 'package:hand_made_app/core/resources/app_string.dart';
+import 'package:hand_made_app/feature/auction/screen/auction_screen.dart';
 import 'package:hand_made_app/feature/home/screen/homepage.dart';
-import 'package:hand_made_app/feature/home/screen/odrer_screen.dart';
+import 'package:hand_made_app/feature/order/screen/odrer_screen.dart';
 import 'package:hand_made_app/feature/home/screen/setting_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -27,6 +28,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   var screen = [
     const HomepageScreen(),
+    const AuctionScreen(),
     const OrderScreen(),
     const SettingScreen(),
   ];
@@ -45,7 +47,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               child: Container(
                 decoration: BoxDecoration(
                   color: AppColor
-                      .background, // Set the background color to match the page
+                      .background, 
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
@@ -64,6 +66,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.home),
                         label: AppStrings.home.tr(),
+                      ),
+                      BottomNavigationBarItem(
+                        icon: const Icon(Icons.shopping_bag),
+                        //icons.CardGiftcard
+                        label: AppStrings.auction.tr(),
                       ),
                       BottomNavigationBarItem(
                         icon: const Icon(Icons.shopping_cart),

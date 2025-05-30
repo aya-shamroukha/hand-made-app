@@ -150,8 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               username: loginbloc.username.text,
                                               password: loginbloc.password.text,
                                             )));
-                                        Navigator.of(context)
-                                            .pushNamed('bottom');
+                                       
                                       } else {
                                         showTost(
                                             message:

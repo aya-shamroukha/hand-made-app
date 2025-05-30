@@ -13,12 +13,13 @@ import 'ai_bloc_state.dart';
 
 class AiBlocBloc extends Bloc<AiBlocEvent, AiBlocState> {
   final craftImagePath = getIt.get<SharedPreferences>().getString('craftimage');
- 
 
   AiBlocBloc() : super(AiBlocInitial()) {
     on<AiEventSuccess>((event, emit) async {
       emit(AiLoadingState());
       try {
+        print('---------------------------------------------------------');
+        print('befor ai');
         final res = await AiImpl().sofaPillow(event.aiModel);
         dynamic data = (res['image_url']);
         print('---------------------------------------------------------');
@@ -39,13 +40,12 @@ class AiBlocBloc extends Bloc<AiBlocEvent, AiBlocState> {
         print('--------------------');
         print(response.statusCode);
         final downloadedFile = File(filePath);
-       // final File downloadedImage = await filePath;
-     //   getIt.get<SharedPreferences>().set('image', filePath);
+        // final File downloadedImage = await filePath;
+        //   getIt.get<SharedPreferences>().set('image', filePath);
         if (downloadedFile.existsSync()) {
           print("Image downloaded successfully at: $filePath");
-           await getIt.get<SharedPreferences>().setString('image', filePath);
-               emit(DownLoadImageSate());
-
+          await getIt.get<SharedPreferences>().setString('image', filePath);
+          emit(DownLoadImageSate());
         } else {
           print("Image not saved correctly.");
         }

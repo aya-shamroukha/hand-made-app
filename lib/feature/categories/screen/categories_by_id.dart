@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_made_app/core/resources/app_color.dart';
-import 'package:hand_made_app/feature/categories/bloc/bloc/get_categories_byid_bloc/get_categories_by_id_bloc.dart';
-import 'package:hand_made_app/feature/categories/bloc/bloc/get_categories_byid_bloc/get_categories_by_id_event.dart';
+import 'package:hand_made_app/feature/categories/bloc/get_categories/get_categories_byid_bloc/get_categories_by_id_bloc.dart';
+import 'package:hand_made_app/feature/categories/bloc/get_categories/get_categories_byid_bloc/get_categories_by_id_event.dart';
 import 'package:hand_made_app/feature/share/positioned_for_icon.dart';
 import 'package:hand_made_app/feature/share/sized_box.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +11,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../core/config/local_storage/shared_preferences.dart';
 import '../../share/shimmer_body.dart';
-import '../bloc/bloc/get_categories_byid_bloc/get_categories_by_id_state.dart';
+import '../bloc/get_categories/get_categories_byid_bloc/get_categories_by_id_state.dart';
 
 class CategoriesById extends StatelessWidget {
   const CategoriesById({super.key});
@@ -62,6 +62,9 @@ class CategoriesById extends StatelessWidget {
                                   getIt.get<SharedPreferences>().setInt(
                                       'id details',
                                       state.getCategories[index].id);
+                                  print(getIt.get<SharedPreferences>().getInt(
+                                        'id details',
+                                      ));
                                   Navigator.of(context)
                                       .pushNamed('categoriesdetails');
                                 },
@@ -87,7 +90,8 @@ class CategoriesById extends StatelessWidget {
                                             return Image.network(
                                                 width: screenWidth * 0.6,
                                                 height: screenHeight * 0.02,
-                                                fit: BoxFit.fill,
+                                                fit: BoxFit.contain,
+                                                // scale: 0.5,
                                                 'http://199.192.19.220:5400/${state.getCategories[index].handcraft_image}');
                                           } else {
                                             return Shimmer.fromColors(
@@ -128,15 +132,38 @@ class CategoriesById extends StatelessWidget {
                                 textAlign: TextAlign.center,
                               ),
                               Text(
-                                state.getCategories[index].handcraft_price,
+                                state.getCategories[index].discounts.isEmpty
+                                    ? '${state.getCategories[index].handcraft_price} ل.س'
+                                    : '${state.getCategories[index].handcraft_price.toString()} ل.س',
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium!
                                     .copyWith(
-                                        fontSize: 13,
-                                        color: AppColor.blodbrownText),
+                                      fontSize: 13,
+                                      color: AppColor.blodbrownText,
+                                      decorationColor: AppColor.primary,
+                                      decorationThickness: 2,
+                                      decoration: state.getCategories[index]
+                                              .discounts.isEmpty
+                                          ? TextDecoration.none
+                                          : TextDecoration
+                                              .lineThrough, // Add line-through for non-discounted items if needed.
+                                    ),
                                 textAlign: TextAlign.start,
                               ),
+                              if (state
+                                  .getCategories[index].discounts.isNotEmpty)
+                                Text(
+                                  '${state.getCategories[index].discounted_price.toString()} ل.س',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium!
+                                      .copyWith(
+                                        fontSize: 13,
+                                        color: Colors.red,
+                                      ),
+                                  textAlign: TextAlign.start,
+                                ),
                             ],
                           );
                         }),

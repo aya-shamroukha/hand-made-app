@@ -35,23 +35,28 @@ class PositionedForIcon extends StatelessWidget {
       bottom: bottom,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: IconButton(
-            color: AppColor.brownText,
-            style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(
-              color ?? AppColor.primary,
-            )),
-            onPressed: onPressed ??
-                () {
-                  Navigator.of(context).pop();
-                },
-            icon: Icon(
-              getIt.get<SharedPreferences>().getString('languagecode') == 'ar'
-                  ? Icons.arrow_forward
-                  : Icons.arrow_back,
-              color: iconColor ?? AppColor.background,
-              size: 20,
-            )),
+        child: SizedBox(
+          width: 40,
+          height: 40,
+          child: IconButton(
+              iconSize: 20,
+              color: AppColor.brownText,
+              style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                color ?? AppColor.primary,
+              )),
+              onPressed: onPressed ??
+                  () {
+                    Navigator.of(context).pop();
+                  },
+              icon: Icon(
+                getIt.get<SharedPreferences>().getString('languagecode') == 'ar'
+                    ? Icons.arrow_forward
+                    : Icons.arrow_back,
+                color: iconColor ?? AppColor.background,
+                size: 20,
+              )),
+        ),
       ),
     );
   }

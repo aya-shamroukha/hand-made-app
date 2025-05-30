@@ -48,7 +48,8 @@ class AppStrings {
   static String delete = 'Delete';
   static String edit = 'Edit';
 
-  static const String on1title = 'Welcome to the World of Handcrafted Creativity!';
+  static const String on1title =
+      'Welcome to the World of Handcrafted Creativity!';
   static const String on1subtitle =
       'Explore our smart, stylish, and trend setting collection that will elevate your look.';
   static const String on2title = 'Shop Now and Discover Unique Handicrafts';
@@ -87,10 +88,42 @@ class AppStrings {
   static const String instructionsForTakePhoto = 'instructionsForTakePhoto';
   static const String pleaseForImage =
       'For a great and useful experience, please follow these instructions.';
-      static String discount = 'discount';
-      static String bazaar = 'bazaar';
-      static String addtocart = 'add to cart';
-      static String tryagain = 'try again';
-      static String totalPrice = 'Total Price';
-      static String confirmOrder = 'Confirm Order';
+  static String discount = 'discount';
+  static String bazaar = 'bazaar';
+  static String addtocart = 'add to cart';
+  static String tryagain = 'try again';
+  static String totalPrice = 'Total Price';
+  static String confirmOrder = 'Confirm Order';
+  static String dateOfOrder = 'Date of order';
+  static String isdeliverd = 'Is deliverd';
+  static String addrating = 'Add Rating';
+  static String addratingtext = 'Rate this product';
+  static String checkYouremail = 'Check Your Email';
+  static String auction = 'Bazaar';
+  static String addcomment = 'Add Comment';
+  static String notexthere = 'No text here';
+  static String update = 'Update';
+  static String deleted = 'Deleted';
+  static String updated = 'Updated';
+  static String somethingwentwrong = 'something went wrong';
+  static String nocomment = 'No Comments Yet';
+  static String productinauction = 'Products available in this bazaar';
+  static String LocationConfirm = 'Location Confirm';
+  static String LocationDetails = 'Location Details';
+  static String theArea = 'The Area';
+  static String theStreet = 'The Street';
+  static String myAddresses = 'My Addressess';
+  static String makerauction = 'The Artisans participating in this bazzar';
+  static String example = 'Example';
+  static String addNewAddress = 'Add new address';
+  static String noaddressesfound = 'No addresses found';
+  static String cart = 'Cart';
+  static String noProductfoundInCart = 'No Product Found In Cart';
+  static String pleaseEnterthelocation = 'Please Enter The Location';
+  static String fullOrderPrice = 'Full Order Price';
+  static String outOfStock = 'Out Of Stock';
+  static String theFinalOrder = 'The final order';
+  static String availableQuantity = 'Available Quantity';
+  static String enterTheVaildNumber = 'Please enter a valid number';
+  static String theOrderGetSuccessfully = 'The order get successfully';
 }

@@ -19,3 +19,25 @@ class GetCommentSuccessState extends AddNewCommentState {
 class GetCommentLoadingState extends AddNewCommentState {}
 
 class GetCommentFieldState extends AddNewCommentState {}
+
+class DeleteCommentLoadingState extends AddNewCommentState {}
+
+class DeleteCommentSuccessState extends AddNewCommentState {
+
+}
+
+class DeleteCommentErrorState extends AddNewCommentState {}
+
+class UpdateCommentLoadingState extends AddNewCommentState {}
+
+class UpdateCommentSuccessState extends AddNewCommentState {
+  // final int updatedCommentId;
+  // final String newDescription;
+
+  // UpdateCommentSuccessState({
+  //   required this.updatedCommentId,
+  //   required this.newDescription,
+  // });
+}
+
+class UpdateCommentErrorState extends AddNewCommentState {}

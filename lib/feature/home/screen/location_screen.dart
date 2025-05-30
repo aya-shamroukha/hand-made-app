@@ -2,12 +2,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hand_made_app/core/config/local_storage/shared_preferences.dart';
 import 'package:hand_made_app/core/resources/app_string.dart';
+import 'package:hand_made_app/feature/share/custom_button.dart';
 import 'package:hand_made_app/feature/share/positioned_for_icon.dart';
-import 'package:hand_made_app/feature/share/sized_box.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -15,6 +14,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/resources/app_color.dart';
+import 'location_details_screen.dart';
 
 getCurrentLocationApp() async {
   bool serviceEnabled;
@@ -43,10 +43,11 @@ class MarkerDate {
 }
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({super.key});
+  LocationScreen({super.key, required this.fromCart});
 
   @override
   State<LocationScreen> createState() => _LocationScreenState();
+  final bool fromCart;
 }
 
 StreamSubscription<Position>? positionStream;
@@ -58,14 +59,36 @@ class _LocationScreenState extends State<LocationScreen> {
   // ignore: prefer_final_fields
   List<MarkerDate> _markerdate = [];
   LatLng? selectPosition;
-
+  double? savedZoom;
+  LatLng? savedCenter;
   LatLng? myLocation;
   bool isDragging = false;
   LatLng? draggedPosition;
   TextEditingController search = TextEditingController();
   List<dynamic> searchResults = [];
   bool isSearching = false;
+  //!save
+  Future<void> saveMapState() async {
+    final prefs = getIt.get<SharedPreferences>();
+    await prefs.setDouble('map_zoom', mapController.camera.zoom);
+    await prefs.setDouble(
+        'map_center_lat', mapController.camera.center.latitude);
+    await prefs.setDouble(
+        'map_center_lng', mapController.camera.center.longitude);
+  }
 
+  //! Restore map state from SharedPreferences
+  Future<void> restoreMapState() async {
+    final prefs = getIt.get<SharedPreferences>();
+    savedZoom = prefs.getDouble('map_zoom');
+    final lat = prefs.getDouble('map_center_lat');
+    final lng = prefs.getDouble('map_center_lng');
+
+    if (savedZoom != null && lat != null && lng != null) {
+      savedCenter = LatLng(lat, lng);
+      mapController.move(savedCenter!, savedZoom!);
+    }
+  }
 //! Function to convert latitude and longitude to an address
 //
   // Future<void> getAddressFromLatLng(double latitude, double longitude) async {
@@ -95,17 +118,17 @@ class _LocationScreenState extends State<LocationScreen> {
       setState(() {
         myLocation = currrntLatLng;
       });
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
+      // List<Placemark> placemarks =
+      //     await placemarkFromCoordinates(position.latitude, position.longitude);
 
-      if (placemarks.isNotEmpty) {
-        final placemark = placemarks.first;
-        final address =
-            '${placemark.country}, ${placemark.locality}, ${placemark.subLocality}';
-        print('Current location: $address');
-        getIt.get<SharedPreferences>().setString('address', address);
-      }
-      print(placemarks);
+      // if (placemarks.isNotEmpty) {
+      //   final placemark = placemarks.first;
+      //   final address =
+      //       '${placemark.country}, ${placemark.locality}, ${placemark.subLocality}';
+      //   print('Current location: $address');
+      //   getIt.get<SharedPreferences>().setString('address', address);
+      // }
+      // print(placemarks);
     } catch (e) {
       print('Geocoding failed: $e');
       print('Current location: ${position.latitude}, ${position.longitude}');
@@ -168,16 +191,16 @@ class _LocationScreenState extends State<LocationScreen> {
   void moveToLocation(double lat, double lon) async {
     LatLng location = LatLng(lat, lon);
     mapController.move(location, 18.0);
-    List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
+    // List<Placemark> placemarks = await placemarkFromCoordinates(lat, lon);
 
-    if (placemarks.isNotEmpty) {
-      final placemark = placemarks.first;
-      final address =
-          '${placemark.country}, ${placemark.locality}, ${placemark.subLocality} ,${placemark.name}';
-      print('Current location: $address');
-      getIt.get<SharedPreferences>().setString('address', address);
-    }
-    print(placemarks);
+    // if (placemarks.isNotEmpty) {
+    //   final placemark = placemarks.first;
+    //   final address =
+    //       '${placemark.country}, ${placemark.locality}, ${placemark.subLocality} ,${placemark.name}';
+    //   print('Current location: $address');
+    //   getIt.get<SharedPreferences>().setString('address', address);
+    // }
+    // print(placemarks);
 
     setState(() {
       selectPosition = location;
@@ -194,7 +217,7 @@ class _LocationScreenState extends State<LocationScreen> {
             )),
       ]);
       Future.delayed(const Duration(seconds: 3), () async {
-        Navigator.of(context).pushReplacementNamed('bottom');
+        Navigator.of(context).pushNamed('locationdetails');
       });
       //  search.clear();
     });
@@ -211,6 +234,7 @@ class _LocationScreenState extends State<LocationScreen> {
     );
     showCurrentLocation();
     getCurrentLocationApp();
+    //restoreMapState();
   }
 
   @override
@@ -219,12 +243,14 @@ class _LocationScreenState extends State<LocationScreen> {
       positionStream!.cancel();
     }
     search.dispose();
+    saveMapState();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var screenHeight = MediaQuery.of(context).size.height;
+    var screenWidth = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
           body: Stack(children: [
@@ -272,7 +298,7 @@ class _LocationScreenState extends State<LocationScreen> {
           ],
         ),
         Positioned(
-          bottom: 240,
+          bottom: screenHeight * 0.09.h,
           right: 20,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -293,184 +319,78 @@ class _LocationScreenState extends State<LocationScreen> {
         ),
         PositionedForIcon(
           left: 0,
-          top: screenHeight * 0.01,
-          iconColor: AppColor.blodbrownText,
-          color: AppColor.brownText,
+          top: screenHeight * 0.027,
           onPressed: () {
             Navigator.of(context).pushReplacementNamed('bottom');
           },
         ),
+        //!for anthor loation
         Positioned(
-          bottom: 15,
-          right: 20,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                SizedBox_Height(height: 10.h),
-                Container(
-                  width: 300.w,
-                  height: 150.h,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: AppColor.brownText.withOpacity(0.7)),
-                  child: Column(
-                    children: [
-                      SizedBox_Height(height: 7.h),
-                      InkWell(
-                        onTap: () {
-                          //                         Navigator.pushNamed(
-                          //   context,
-                          //   '/home',
-                          //   arguments: Placemark(),
-                          // );
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return Dialog(
-                                  backgroundColor: AppColor.background,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pushNamed('bottom');
-                                    },
-                                    child: Container(
-                                      width: 200.w,
-                                      height: 70.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox_Height(height: 10.h),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                  '${getIt.get<SharedPreferences>().getString('address')}',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .displayMedium!),
-                                              Icon(
-                                                Icons.location_on,
-                                                color: AppColor.blodbrownText,
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox_Height(height: 7.h),
-                                          Container(
-                                            width: 30.w,
-                                            height: 25.h,
-                                            decoration: BoxDecoration(
-                                                color: AppColor.primary,
-                                                borderRadius:
-                                                    BorderRadius.circular(100)),
-                                            child: Icon(
-                                              Icons.check,
-                                              color: AppColor.background,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Container(
-                          height: 40.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: AppColor.background,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox_width(width: 7.w),
-                              Icon(
-                                Icons.location_on_outlined,
-                                color: AppColor.primary,
-                              ),
-                              Text(
-                                AppStrings.useMyCrrunetLocation.tr(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(
-                                        color: AppColor.blodbrownText,
-                                        fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox_Height(height: 4.h),
-                      Text(
-                        AppStrings.or.tr(),
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium!
-                            .copyWith(color: AppColor.primary),
-                      ),
-                      SizedBox_Height(height: 4.h),
-                      SizedBox(
-                        height: 40.h,
-                        width: 300.w,
-                        child: Center(
-                          child: TextFormField(
-                            cursorColor: AppColor.primary,
-                            onTap: () {
-                              setState(() {
-                                isSearching = true;
-                              });
+          top: 25,
+          right: 10,
+          child: SizedBox(
+            height: screenHeight * 0.04.h,
+            width: screenWidth * 0.7.w,
+            child: Center(
+              child: TextFormField(
+                cursorColor: AppColor.primary,
+                onTap: () {
+                  setState(() {
+                    isSearching = true;
+                  });
+                },
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none),
+                    hintText: AppStrings.chooseLocation.tr(),
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .displayMedium!
+                        .copyWith(color: AppColor.blodbrownText, fontSize: 20),
+                    fillColor: AppColor.background,
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: AppColor.primary,
+                    ),
+                    suffixIcon: isSearching
+                        ? IconButton(
+                            onPressed: () {
+                              search.clear();
+                              (setState(() {
+                                isSearching = false;
+                                searchResults = [];
+                              }));
                             },
-                            decoration: InputDecoration(
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide.none),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                    borderSide: BorderSide.none),
-                                hintText: AppStrings.chooseLocation.tr(),
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium!
-                                    .copyWith(
-                                        color: AppColor.blodbrownText,
-                                        fontSize: 20),
-                                fillColor: AppColor.background,
-                                filled: true,
-                                prefixIcon: Icon(
-                                  Icons.search,
-                                  color: AppColor.primary,
-                                ),
-                                suffixIcon: isSearching
-                                    ? IconButton(
-                                        onPressed: () {
-                                          search.clear();
-                                          (setState(() {
-                                            isSearching = false;
-                                            searchResults = [];
-                                          }));
-                                        },
-                                        icon: const Icon(Icons.clear))
-                                    : null),
-                            controller: search,
-                          ),
-                        ),
-                      ),
-                      SizedBox_Height(height: 10.h),
-                    ],
-                  ),
-                ),
-              ],
+                            icon: const Icon(Icons.clear))
+                        : null),
+                controller: search,
+              ),
             ),
           ),
         ),
+        //!formyloaction
+        Positioned(
+            bottom: screenHeight * 0.019.h,
+            right: screenWidth * 0.14.w,
+            child: Center(
+              child: CustomButton(
+                  width: screenWidth * 0.6,
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            LocationDetailsScreen(fromCart: widget.fromCart),
+                      ),
+                    );
+                  },
+                  text: AppStrings.LocationConfirm.tr()),
+            )),
+        //!for result of search
         if (isSearching && searchResults.isNotEmpty)
           Positioned(
             bottom: 220,

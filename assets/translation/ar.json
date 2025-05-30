@@ -87,7 +87,45 @@
 "try again":"اعد المحاولة",
 "Total Price":"إجمالي السعر",
 "Confirm Order":"تأكيد الطلب",
-"Comment":"التعليقات"
+"Comment":"التعليقات",
+"Date of order":"تاريخ الطلب",
+"Is deliverd":"حالة التوصيل",
+"Add Rating":"أضف تقييم",
+"Rate this product":"أضف تقييم لهذا المنتج",
+"Check Your Email":"تحقق من بريدك الالكتروني",
+"Bazaar":"البازارات",
+"Add Comment":"أضف تعليق",
+"No text here":"لا يوجد نص لاضافته",
+"Update":"تعديل",
+"something went wrong":" حدث خطأ ما",
+"Updated":"تم التعديل",
+"Deleted":"تم الحذف",
+"No Comments Yet":"لا يوجد تعليقات",
+"Products available in this bazaar":"المنتجات المتوفرة في هذا البازار",
+"Location Confirm":"تأكيد الموقع ",
+"Location Details":"تفاصيل الموقع",
+"The Area":"المنطقة",
+"The Street":"الشارع",
+"My Addressess":"عناويني",
+"The Artisans participating in this bazzar":"الحرفيين المشاركين في هذا البازار",
+"Example":"مثال",
+"Add new address":"إضافة عنوان جديد",
+"No addresses found":"لم تقم بإضافة عنوان بعد",
+"Cart":"السلة",
+"No Product Found In Cart":"لم تقم بإضافة منتج الى السلة بعد",
+"Please Enter The Location":"الرجاء ادخال الموقع اولاً",
+"Full Order Price":"السعر الكلي",
+"Out Of Stock":"لقد نفذت الكمية",
+"Available Quantity":"الكمية المتاحة ",
+"Please enter a valid number":"الرجاء ادخال رقم صالح,",
+"The final order":"الطلب النهائي",
+"The order get successfully":"تم الطلب بنجاح"
+
+
+
+
+
+
 
 
 }

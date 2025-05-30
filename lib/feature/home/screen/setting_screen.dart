@@ -41,7 +41,10 @@ class SettingScreen extends StatelessWidget {
               ),
               SizedBox_Height(height: 40.h),
               SettingListTile(
-                text: AppStrings.profile.tr(),
+                ontap: () {
+                  Navigator.of(context).pushNamed('address');
+                },
+                text: AppStrings.myAddresses.tr(),
                 leadingIcon: Icons.person,
               ),
               const CustomDivider(),
@@ -115,7 +118,8 @@ class SettingScreen extends StatelessWidget {
                   if (state is LogOutSuccessState) {
                     showTost(
                         message: AppStrings.logoutSuccess.tr(),
-                        state: ToastState.error);
+                        state: ToastState.success);
+                    getIt.get<SharedPreferences>().remove('token');
                     Navigator.of(context).pushReplacementNamed('login');
                   }
                 }, builder: (context, state) {
@@ -128,7 +132,7 @@ class SettingScreen extends StatelessWidget {
                                       width: 10.h,
                                       child: const Loading())
                                   : CustomButton(
-                                      height: 30,
+                                      height: 30.h,
                                       onPressed: () {
                                         context
                                             .read<LogOutBloc>()

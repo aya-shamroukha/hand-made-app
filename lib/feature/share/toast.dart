@@ -9,7 +9,7 @@ showTost({required String message, required ToastState state}) {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: getState(state),
-      textColor: AppColor.primary,
+      textColor: AppColor.background,
       fontSize: 16.0);
 }
 
@@ -18,7 +18,7 @@ enum ToastState { error, success, warining }
 Color getState(ToastState state) {
   switch (state) {
     case ToastState.error:
-      return AppColor.background;
+      return AppColor.red;
     case ToastState.success:
       return AppColor.primary;
     case ToastState.warining:

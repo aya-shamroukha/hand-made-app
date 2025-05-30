@@ -1,4 +1,3 @@
- import '../../../../core/domin/model/categories_model/get_rating_model.dart';
 
 class GetRatingState {}
 
@@ -12,3 +11,10 @@ class GetRatingSuccessState extends GetRatingState {
 class GetRatingLoadingState extends GetRatingState {}
 
 class GetRatingFieldState extends GetRatingState {}
+class AddRatingSuccessState extends GetRatingState {
+ 
+}
+
+class  AddRatingLoadingState extends GetRatingState {}
+
+class  AddRatingFieldState extends GetRatingState {}
