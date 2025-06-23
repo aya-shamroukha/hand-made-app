@@ -100,7 +100,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                                               sendEmailModel: SendEmailModel(
                                                   email: email.text
                                                       .toString()
-                                                      .toString())));
+                                                      .toString())
+                                                      ));
                                     }
                                     // else {
                                     //   showTost(
